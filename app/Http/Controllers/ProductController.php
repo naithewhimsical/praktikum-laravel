@@ -34,27 +34,30 @@ public function detailProduct($id)
     }
 
     // Menyimpan produk baru
-    public function store(Request $request)
-    {
-        $request->validate([
+    
+// Menyimpan produk baru
+public function store(Request $request)
+{
+    $request->validate([
         'name_product' => 'required|string|min:4|max:20',
         'stock_product' => 'required|integer|min:0',
-        'price_product' => 'required|numeric|min:0',
+        'price_product' => 'required|integer|min:0',
         'desc_product' => 'required|string',
         'id_category' => 'required|integer',
     ]);
 
-        Product::create($request->only([
-            'name_product',
-            'stock_product',
-            'price_product',
-            'desc_product',
-            'id_category',
-        ]));
+    Product::create($request->only([
+        'name_product',
+        'stock_product',
+        'price_product',
+        'desc_product',
+        'id_category',
+    ]));
 
-        return redirect('/product')
-            ->with('success', 'Produk berhasil ditambahkan!');
-    }
+    return redirect('/product')
+        ->with('success', 'Produk berhasil ditambahkan!');
+}
+
 
     // Menampilkan halaman edit produk
     public function editProduct($id)
@@ -90,12 +93,13 @@ public function detailProduct($id)
     }
 
     // Menghapus produk
-    public function deleteProduct($id)
-    {
-        $produk = Product::findOrFail($id);
-        $produk->delete();
+public function destroy($id)
+{
+    $produk = Product::findOrFail($id);
+    $produk->delete();
 
-        return redirect('/product')
-            ->with('success', 'Produk berhasil dihapus!');
-    }
+    return redirect('/product')
+        ->with('success', 'Data Berhasil Dihapus');
+}
+
 }

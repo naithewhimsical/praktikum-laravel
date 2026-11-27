@@ -11,7 +11,6 @@ Route::get('/', function () {
 });
 
 
-
 Route::get('/about', function () {
     return view('pages.about', [
         'nama'=> 'Naila Nur Fadila',
@@ -38,7 +37,7 @@ Route::get('/product/detail/{id}', [ProductController::class, 'detailProduct']);
 Route::put('/product/update/{id}', [ProductController::class, 'updateProduct']);
 Route::get('/sapa', [SapaController::class, 'index']);
 Route::post('/product', [ProductController::class, 'store']);
-Route::delete('/product/delete/{id}', [ProductController::class, 'deleteProduct']);
+Route::delete('/product/{id}', [ProductController::class, 'destroy'])
+    ->name('product.destroy');
 Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
-Route::get('/category', [CategoryController::class, 'index']);
-Route::get('/product/detail/{id}', [ProductController::class, 'detailProduct']);
+Route::resource('/category', CategoryController::class);

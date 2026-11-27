@@ -30,8 +30,23 @@
         <td>{{ $item->category_name }}</td>
         <td>{{ $item->description }}</td>
         <td>
-            <button class="btn btn-warning btn-sm">Edit</button>
-            <button class="btn btn-danger btn-sm">Hapus</button>
+            <a href="{{ route('category.edit', $item->id_category) }}"
+   class="btn btn-warning btn-sm">
+    Edit
+</a>
+
+<form action="{{ route('category.destroy', $item->id_category) }}"
+      method="POST"
+      style="display:inline;">
+    @csrf
+    @method('DELETE')
+
+    <button type="submit"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('Yakin ingin menghapus kategori ini?')">
+        Hapus
+    </button>
+</form>
         </td>
     </tr>
     @empty

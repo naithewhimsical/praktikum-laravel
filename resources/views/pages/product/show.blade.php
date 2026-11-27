@@ -60,18 +60,48 @@
         <td>{{ $item->desc_product }}</td>
 
         <td>
-            <form action="{{ url('/product/delete/' . $item->id_product) }}"
-                  method="POST"
-                  style="display: inline;"
-                  onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
+            <button type="button" class="btn btn-danger btn-sm"
+        data-bs-toggle="modal"
+        data-bs-target="#modalHapus{{ $item->id_product }}">
+    Hapus
+</button>
 
-                @csrf
-                @method('DELETE')
+<div class="modal fade" id="modalHapus{{ $item->id_product }}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-                <button type="submit" class="btn btn-danger btn-sm">
-                    Delete
+            <div class="modal-header">
+                <h5 class="modal-title">Konfirmasi Hapus</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                KONFIRMASI ULANG !!!
+                <br>
+                Apakah Anda yakin ingin menghapus produk
+                <strong>{{ $item->name_product }}</strong>?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Batal
                 </button>
-            </form>
+
+                <form action="{{ route('product.destroy', $item->id_product) }}"
+                      method="POST">
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="btn btn-danger">
+                        Ya, Hapus
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 
             <a href="{{ url('/product/edit/' . $item->id_product) }}"
                class="btn btn-warning btn-sm">
